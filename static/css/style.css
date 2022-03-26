@@ -1,0 +1,13 @@
+#displayArea{
+    position: fixed;
+    bottom: 0;
+}
+
+#fixed{
+    position:fixed;
+    bottom: 0;
+}
+body{
+    height: 540px;
+    position: fixed;
+}
