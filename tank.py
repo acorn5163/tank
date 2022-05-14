@@ -12,10 +12,10 @@ class Tank:
 
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
-        self.motor_right_F = 19
-        self.motor_right_B = 13
-        self.motor_left_F = 6
-        self.motor_left_B = 5
+        self.motor_right_F = 13
+        self.motor_right_B = 6
+        self.motor_left_F = 5
+        self.motor_left_B = 0
         self.duty = 80
 
         GPIO.setup(self.motor_right_F, GPIO.OUT)
