@@ -7,48 +7,72 @@ setInterval(direction,100);
 function direction(){
     let dir=joy.GetDir();
     console.log(dir);
+    console.log("------------------")
+    let posX=joy.GetX();
+    let posY=joy.GetY();
+    console.log("X:"+posX);
+    console.log("Y:"+posY);
+
+    console.log("------------------")
+    let speed = Math.sqrt((Number(posX))**2+(Number(posY))**2);
+    let deviation = Number(posX)/Number(posY);
+    console.log("------------------")
     if (dir.includes("N"))
     {
-        tankCmd("forward");
+        tankCmd("forward",speed,deviation);
         console.log('f');
     }
     else if (dir.includes("S"))
     {
-        tankCmd("backward");
+        tankCmd("backward",speed,deviation);
         console.log('b');
     }
     else if (dir=="E")
     {
-        tankCmd("turnright");
+        tankCmd("turnright",speed,deviation);
     }
     else if (dir=="W")
     {
-        tankCmd("turnleft");
+        tankCmd("turnleft",speed,deviation);
     }
     else if (dir=="C")
     {
-        tankCmd("stop");
+        tankCmd("stop",speed,deviation);
     }
 }
-function tankCmd(way)
+
+
+function tankCmd(direction,speed=0,deviation=0)
 {
-    console.log(way);
+    console.log(direction);
     let form = document.createElement("form")
     form.setAttribute("action","/on")
     form.setAttribute("method","post")
     form.setAttribute("target","hiddeniframe")
     form.setAttribute("onsubmit","dosomething();return false")
     form.style.display = "none";
-    console.log(way);
+    console.log(speed);
     document.body.appendChild(form);
 
-    let input;
-    input = document.createElement("input");
-    input.setAttribute("type","hidden");
-    input.setAttribute("name","name");
-    input.setAttribute("value",way);
+    let inputdirection;
+    inputdirection = document.createElement("inputdirection");
+    inputdirection.setAttribute("type","hidden");
+    inputdirection.setAttribute("name","direction");
+    inputdirection.setAttribute("value",direction);
 
-    form.appendChild(input);
+    let inputspeed;
+    inputspeed = document.createElement("inputspeed");
+    inputspeed.setAttribute("type","hidden");
+    inputspeed.setAttribute("name","speed");
+    inputspeed.setAttribute("value",speed);
+
+    let inputdeviation;
+    inputdeviation = document.createElement("inputdeviation");
+    inputdeviation.setAttribute("type","hidden");
+    inputdeviation.setAttribute("name","deviation");
+    inputdeviation.setAttribute("value",deviation);
+    
+    form.appendChild(inputdirection,inputspeed,inputdeviation);
     form.submit();
     return false;
 }
