@@ -27,7 +27,9 @@ def control():
     if request.method == "POST":
 
         speed = 100*(int(request.form['speed'])/141) #make speed %
+        print("speed_persent:"+speed)
         deviation = 100*(1 - int(request.form['deviation'])/50)# make deviation %
+        print("deviation_persent:"+deviation)
 
         print(request.form['directionY'])
         if "forward"==request.form['directionY']:

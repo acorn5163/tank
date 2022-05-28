@@ -21,50 +21,52 @@ function direction(){
         deviation = Math.abs(Math.floor(posX/posY));
     }
     console.log("------------------")
-    if (posY>=0,posX==0)
+    if (posY>=0)
     {
-        tankCmd("forward",speed,deviation);
-        console.log('f');
+        if(posX>0)
+        {
+            tankCmd("forward","right",speed,deviation);
+            console.log('fr');
+        }
+        else if(posX<0)
+        {
+            tankCmd("forward","left",speed,deviation);
+            console.log('fl');
+        }
+        else if(posX==0)
+        {
+            tankCmd("forward","straight",speed,deviation);
+            console.log('f');
+        }
     }
-    else if (posY>=0,posX>0)
+    if (posY<0)
     {
-        tankCmd("forward_right",speed,deviation);
-        console.log('fr');
+        if(posX>0)
+        {
+            tankCmd("backward","right",speed,deviation);
+            console.log('br');
+        }
+        else if(posX<0)
+        {
+            tankCmd("backward","left",speed,deviation);
+            console.log('bl');
+        }
+        else if(posX==0)
+        {
+            tankCmd("backward","straight",speed,deviation);
+            console.log('b');
+        }
     }
-
-    else if (posY>=0,posX<0)
-    {
-        tankCmd("forward_left",speed,deviation);
-        console.log('fl');
-    }
-    else if (posY<0 & posX==0)
-    {
-        tankCmd("backward",speed,deviation);
-        console.log('b');
-    }
-
-    else if (posY<0 & posX>0)
-    {
-        tankCmd("backward_right",speed,deviation);
-        console.log('br');
-    }
-
-    else if (posY<0 & posX<0)
-    {
-        tankCmd("backward_left",speed,deviation);
-        console.log('bl');
-    }
-
     else if (posY==0 & posX==0)
     {
-        tankCmd("stop",speed,deviation);
+        tankCmd("stop","straight",speed,deviation);
     }
 }
 
 
-function tankCmd(direction,speed=0,deviation=0)
+function tankCmd(directionY,directionX,speed=0,deviation=0)
 {
-    console.log(direction);
+    console.log(directionY);
     let form = document.createElement("form")
     form.setAttribute("action","/on")
     form.setAttribute("method","post")
@@ -75,11 +77,17 @@ function tankCmd(direction,speed=0,deviation=0)
     console.log("deviation" + deviation);
     document.body.appendChild(form);
 
-    let inputdirection;
-    inputdirection = document.createElement("inputdirection");
-    inputdirection.setAttribute("type","hidden");
-    inputdirection.setAttribute("name","direction");
-    inputdirection.setAttribute("value",direction);
+    let inputdirectionY;
+    inputdirectionY = document.createElement("inputdirectionY");
+    inputdirectionY.setAttribute("type","hidden");
+    inputdirectionY.setAttribute("name","directionY");
+    inputdirectionY.setAttribute("value",directionY);
+
+    let inputdirectionX;
+    inputdirectionX = document.createElement("inputdirectionX");
+    inputdirectionX.setAttribute("type","hidden");
+    inputdirectionX.setAttribute("name","directionX");
+    inputdirectionX.setAttribute("value",directionX);
 
     let inputspeed;
     inputspeed = document.createElement("inputspeed");
@@ -93,7 +101,7 @@ function tankCmd(direction,speed=0,deviation=0)
     inputdeviation.setAttribute("name","deviation");
     inputdeviation.setAttribute("value",deviation);
     
-    form.appendChild(inputdirection,inputspeed,inputdeviation);
+    form.appendChild(inputdirectionY,inputdirectionX,inputspeed,inputdeviation);
     form.submit();
     return false;
 }
