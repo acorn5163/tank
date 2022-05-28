@@ -45,23 +45,23 @@ class Tank:
         print("tank forwarding")
         print("-"*20)
 
-    def turnright(self,dutyright,dutyleft):
-        self.rightF.ChangeDutyCycle(dutyright)
-        self.rightB.ChangeDutyCycle(0)
-        self.leftF.ChangeDutyCycle(dutyleft)
-        self.leftB.ChangeDutyCycle(0)
-        print("-"*20)
-        print("tank turning right")
-        print("-"*20)
+    #def turnright(self,dutyright,dutyleft):
+        #self.rightF.ChangeDutyCycle(dutyright)
+        #self.rightB.ChangeDutyCycle(0)
+        #self.leftF.ChangeDutyCycle(dutyleft)
+        #self.leftB.ChangeDutyCycle(0)
+        #print("-"*20)
+        #print("tank turning right")
+        #print("-"*20)
 
     #def turnleft(self,dutyright,dutylight):
-        self.rightF.ChangeDutyCycle(dutyright)
-        self.rightB.ChangeDutyCycle(0)
-        self.leftF.ChangeDutyCycle(dutyleft)
-        self.leftB.ChangeDutyCycle(0)
-        print("-"*20)
-        print("tank turning left")
-        print("-"*20)
+        #self.rightF.ChangeDutyCycle(dutyright)
+        #self.rightB.ChangeDutyCycle(0)
+        #self.leftF.ChangeDutyCycle(dutyleft)
+        #self.leftB.ChangeDutyCycle(0)
+        #print("-"*20)
+        #print("tank turning left")
+        #print("-"*20)
 
     def backward(self,dutyright,dutyleft):
         self.rightF.ChangeDutyCycle(0)

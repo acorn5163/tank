@@ -14,28 +14,24 @@ function direction(){
     console.log("Y:"+posY);
 
     console.log("------------------")
-    let speed = Math.sqrt((Number(posX))**2+(Number(posY))**2);
-    let deviation = Number(posX)/Number(posY);
+    let speed = Math.sqrt(posX**2+posY**2);
+    let deviation = 0
+    if (posY !=0)
+    {
+        deviation = posX/posY;
+    }
     console.log("------------------")
-    if (dir.includes("N"))
+    if (posY>0)
     {
         tankCmd("forward",speed,deviation);
         console.log('f');
     }
-    else if (dir.includes("S"))
+    else if (posY<0)
     {
         tankCmd("backward",speed,deviation);
         console.log('b');
     }
-    else if (dir=="E")
-    {
-        tankCmd("turnright",speed,deviation);
-    }
-    else if (dir=="W")
-    {
-        tankCmd("turnleft",speed,deviation);
-    }
-    else if (dir=="C")
+    else if (posY==0)
     {
         tankCmd("stop",speed,deviation);
     }
