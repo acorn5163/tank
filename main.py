@@ -23,34 +23,49 @@ def index():
 
 
 @app.route('/on',methods=["POST"])
-def control():
+def control(): 
     if request.method == "POST":
-        print(request.form['name'])
-        if "forward"==request.form['name']:
+
+        speed = 100*(int(request.form['speed'])/141) #make speed %
+        deviation = 100*(1 - int(request.form['deviation'])/50)# make deviation %
+
+        print(request.form['directionY'])
+        if "forward"==request.form['directionY']:
             print("-"*20)
             print("forwarding")
             print("-"*20)
-            tank.forward()
+            if "right"==request.form['directionX']:
+                tank.forward(speed-deviation,speed)
+            elif "left"==request.form['directionX']:
+                tank.forward(speed,speed-deviation)
+            elif "straight"==request.form['directionX']:
+                tank.forward(speed,speed)
+            
 
-        elif "backward"==request.form['name']:
+        elif "backward"==request.form['directionY']:
             print("-"*20)
             print("backwarding")
             print("-"*20)
-            tank.backward()
+            if "right"==request.form['directionX']:
+                tank.backward(speed-deviation,speed)
+            elif "left"==request.form['directionX']:
+                tank.backward(speed,speed-deviation)
+            elif "straight"==request.form['directionX']:
+                tank.backward(speed,speed)
 
-        elif "turnright"==request.form['name']:
-            print("-"*20)
-            print("turning right")
-            print("-"*20)
-            tank.turnright()
+        #elif "turnright"==request.form['direction']:
+            #print("-"*20)
+            #print("turning right")
+            #print("-"*20)
+            #tank.turnright(speed,speed-deviation)
         
-        elif "turnleft"==request.form['name']:
-            print("-"*20)
-            print("turning left")
-            print("-"*20)
-            tank.turnleft()
+        #elif "turnleft"==request.form['direction']:
+            #print("-"*20)
+            #print("turning left")
+            #print("-"*20)
+            #tank.turnleft(speed-deviation,speed)
 
-        elif "stop"==request.form['name']:
+        elif "stop"==request.form['direction']:
             print("-"*20)
             print("stopping")
             print("-"*20)
