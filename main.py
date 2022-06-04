@@ -25,11 +25,11 @@ def index():
 @app.route('/on',methods=["POST"])
 def control(): 
     if request.method == "POST":
-
-        speed = 100*(int(request.form['speed'])/141) #make speed %
-        print("speed_persent:"+speed)
-        deviation = 100*(1 - int(request.form['deviation'])/50)# make deviation %
-        print("deviation_persent:"+deviation)
+        if request.form['speed'] != null:
+            speed = 100*(int(request.form['speed'])/141) #make speed %
+            print("speed_persent:"+speed)
+            deviation = 100*(1 - int(request.form['deviation'])/50)# make deviation %
+            print("deviation_persent:"+deviation)
 
         print(request.form['directionY'])
         if "forward"==request.form['directionY']:
@@ -37,9 +37,9 @@ def control():
             print("forwarding")
             print("-"*20)
             if "right"==request.form['directionX']:
-                tank.forward(speed-deviation,speed)
+                tank.forward(speed*deviation,speed)
             elif "left"==request.form['directionX']:
-                tank.forward(speed,speed-deviation)
+                tank.forward(speed,speed*deviation)
             elif "straight"==request.form['directionX']:
                 tank.forward(speed,speed)
             
@@ -49,9 +49,9 @@ def control():
             print("backwarding")
             print("-"*20)
             if "right"==request.form['directionX']:
-                tank.backward(speed-deviation,speed)
+                tank.backward(speed*deviation,speed)
             elif "left"==request.form['directionX']:
-                tank.backward(speed,speed-deviation)
+                tank.backward(speed,speed*deviation)
             elif "straight"==request.form['directionX']:
                 tank.backward(speed,speed)
 
@@ -88,4 +88,4 @@ def control():
             #mimetype="multipart/x-mixed-replace; boundary=frame")
 
 
-app.run("0.0.0.0")
+app.run("0.0.0.0",debug = True)

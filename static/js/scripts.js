@@ -78,30 +78,28 @@ function tankCmd(directionY,directionX,speed=0,deviation=0)
     document.body.appendChild(form);
 
     let inputdirectionY;
-    inputdirectionY = document.createElement("inputdirectionY");
+    inputdirectionY = document.createElement("input");
     inputdirectionY.setAttribute("type","hidden");
     inputdirectionY.setAttribute("name","directionY");
     inputdirectionY.setAttribute("value",directionY);
 
     let inputdirectionX;
-    inputdirectionX = document.createElement("inputdirectionX");
+    inputdirectionX = document.createElement("input");
     inputdirectionX.setAttribute("type","hidden");
     inputdirectionX.setAttribute("name","directionX");
     inputdirectionX.setAttribute("value",directionX);
 
     let inputspeed;
-    inputspeed = document.createElement("inputspeed");
+    inputspeed = document.createElement("input");
     inputspeed.setAttribute("type","hidden");
     inputspeed.setAttribute("name","speed");
     inputspeed.setAttribute("value",speed);
 
     let inputdeviation;
-    inputdeviation = document.createElement("inputdeviation");
+    inputdeviation = document.createElement("input");
     inputdeviation.setAttribute("type","hidden");
     inputdeviation.setAttribute("name","deviation");
     inputdeviation.setAttribute("value",deviation);
     
     form.appendChild(inputdirectionY,inputdirectionX,inputspeed,inputdeviation);
-    form.submit();
-    return false;
 }
