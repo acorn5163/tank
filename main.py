@@ -25,7 +25,7 @@ def index():
 @app.route('/on',methods=["POST"])
 def control(): 
     if request.method == "POST":
-        if request.form['speed'] != null:
+        if request.form['speed'] != None:
             speed = 100*(int(request.form['speed'])/141) #make speed %
             print("speed_persent:"+speed)
             deviation = 100*(1 - int(request.form['deviation'])/50)# make deviation %
