@@ -71,7 +71,6 @@ function tankCmd(directionY,directionX,speed=0,deviation=0)
     form.setAttribute("action","/on")
     form.setAttribute("method","post")
     form.setAttribute("target","hiddeniframe")
-    form.setAttribute("onsubmit","dosomething();return false")
     form.style.display = "none";
     console.log("speed" + speed);
     console.log("deviation" + deviation);
@@ -82,24 +81,29 @@ function tankCmd(directionY,directionX,speed=0,deviation=0)
     inputdirectionY.setAttribute("type","hidden");
     inputdirectionY.setAttribute("name","directionY");
     inputdirectionY.setAttribute("value",directionY);
+    form.appendChild(inputdirectionY);
 
     let inputdirectionX;
     inputdirectionX = document.createElement("input");
     inputdirectionX.setAttribute("type","hidden");
     inputdirectionX.setAttribute("name","directionX");
     inputdirectionX.setAttribute("value",directionX);
+    form.appendChild(inputdirectionX);
 
     let inputspeed;
     inputspeed = document.createElement("input");
     inputspeed.setAttribute("type","hidden");
     inputspeed.setAttribute("name","speed");
     inputspeed.setAttribute("value",speed);
+    form.appendChild(inputspeed);
 
     let inputdeviation;
     inputdeviation = document.createElement("input");
     inputdeviation.setAttribute("type","hidden");
     inputdeviation.setAttribute("name","deviation");
     inputdeviation.setAttribute("value",deviation);
+    form.appendChild(inputdeviation);
     
-    form.appendChild(inputdirectionY,inputdirectionX,inputspeed,inputdeviation);
+    
+    form.submit();
 }
