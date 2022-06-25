@@ -4,10 +4,6 @@ import sys
 
 
 
-
-
-
-
 class Tank:
 
     def __init__(self):
@@ -35,7 +31,7 @@ class Tank:
         self.leftB.start(0)
         print("tankcalled")
 
-
+        
     def forward(self,dutyright,dutyleft):
         self.rightF.ChangeDutyCycle(dutyright)
         self.rightB.ChangeDutyCycle(0)
@@ -87,6 +83,8 @@ class Tank:
         self.rightB.ChangeDutyCycle(0)
         self.leftF.ChangeDutyCycle(0)
         self.leftB.ChangeDutyCycle(0)
+        print("-"*20)
+        print("closing...")
         GPIO.cleanup()
         sys.exit(0)
 

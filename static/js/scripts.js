@@ -1,6 +1,6 @@
 let joy = new JoyStick('joyDiv');
 
-setInterval(direction,100);
+setInterval(direction,10000);
 
 
 
@@ -9,7 +9,9 @@ function direction(){
     console.log(dir);
     console.log("------------------")
     let posX=joy.GetX();
+    posX = 0;
     let posY=joy.GetY();
+    posY = 60;
     console.log("X:"+posX);
     console.log("Y:"+posY);
 
@@ -21,7 +23,7 @@ function direction(){
         deviation = Math.abs(Math.floor(posX/posY));
     }
     console.log("------------------")
-    if (posY>=0)
+    if (posY>0)
     {
         if(posX>0)
         {
@@ -39,7 +41,7 @@ function direction(){
             console.log('f');
         }
     }
-    if (posY<0)
+    else if (posY<0)
     {
         if(posX>0)
         {
@@ -57,10 +59,15 @@ function direction(){
             console.log('b');
         }
     }
-    else if (posY==0 & posX==0)
+    else
     {
-        tankCmd("stop","straight",speed,deviation);
+        tankCmd("null","null",speed,deviation)
     }
+    //else if (posY==0 & posX==0)
+    //{
+        //tankCmd("stop","straight",speed,deviation);
+        //console.log('s');
+    //}
 }
 
 
@@ -103,7 +110,6 @@ function tankCmd(directionY,directionX,speed=0,deviation=0)
     inputdeviation.setAttribute("name","deviation");
     inputdeviation.setAttribute("value",deviation);
     form.appendChild(inputdeviation);
-    
     
     form.submit();
 }
