@@ -27,12 +27,14 @@ def index():
 def control(): 
     if request.method == "POST":
         if request.form['speed'] != None:
+            print("speed_origin"+str(request.form['speed']))
+            print("deviation_origin"+str(request.form['deviation']))
             speed_per = math.floor(100*(int(request.form['speed'])/141))
-            deviation_per = 100-math.floor(2*(int(request.form['deviation'])))
+            deviation_per = 100-math.floor(100*(int(request.form['deviation'])/100))
             print("speed_per:"+str(speed_per))
-            print("deviation_per"+str(deviation_per))
-            speed_higher = speed_per
-            speed_lower = speed_per*deviation_per
+            print("deviation_per:"+str(deviation_per))
+            speed_higher = math.floor(speed_per)
+            speed_lower = math.floor(speed_per*deviation_per/100)
 
             if "forward"==request.form['directionY']:
                 if "right"==request.form['directionX']:
