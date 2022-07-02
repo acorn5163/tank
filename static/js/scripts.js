@@ -25,27 +25,27 @@ function direction(){
     console.log("deviation:"+deviation);
     console.log("------------------");
 
-    let temp_deviationX = "null";
-    let temp_deviationY = "null";
+    let temp_directionX = "null";
+    let temp_directionY = "null";
 
     if (posY>0)
     {
-        temp_deviationY = "forward";
+        temp_directionY = "forward";
         if(posX>0)
         {
-            temp_deviationX = "right";
+            temp_directionX = "right";
             ///tankCmd("forward","right",speed,deviation);
             console.log('script:forward_right');
         }
         else if(posX<0)
         {
-            temp_deviationX = "left";
+            temp_directionX = "left";
             ///tankCmd("forward","left",speed,deviation);
             console.log('script:forward_left');
         }
         else if(posX==0)
         {
-            temp_deviationX = "straight";
+            temp_directionX = "straight";
             ///tankCmd("forward","straight",speed,deviation);
             console.log('script:forward_straight');
         }
@@ -53,27 +53,28 @@ function direction(){
 
     else if (posY<0)
     {
-        temp_deviationY = "backward";
+        temp_directionY = "backward";
         if(posX>0)
         {
-            temp_deviationX = "right";
+            temp_directionX = "right";
             ///tankCmd("backward","right",speed,deviation);
             console.log('script:backward_right');
         }
         else if(posX<0)
         {
-            temp_deviationX = "left";
+            temp_directionX = "left";
             ///tankCmd("backward","left",speed,deviation);
             console.log('script:backward_left');
         }
         else if(posX==0)
         {
-            temp_deviationX = "straight";
+            temp_directionX = "straight";
             ///tankCmd("backward","straight",speed,deviation);
             console.log('script:backward_straight');
 
         }
     }
+    tankCmd(temp_directionY,temp_directionX,speed,deviation)
 }
  
 

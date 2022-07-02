@@ -27,10 +27,10 @@ def index():
 def control(): 
     if request.method == "POST":
         if request.form['speed'] != None:
-            speed_per = Math.floor(100*(request.form['speed']/141))
-            deviation_per = 100-Math.floor(2*(request.form['deviation']))
-            print("speed_per:"+speed_per)
-            print("deviation_per"+deviation_per)
+            speed_per = math.floor(100*(int(request.form['speed'])/141))
+            deviation_per = 100-math.floor(2*(int(request.form['deviation'])))
+            print("speed_per:"+str(speed_per))
+            print("deviation_per"+str(deviation_per))
             speed_higher = speed_per
             speed_lower = speed_per*deviation_per
 
