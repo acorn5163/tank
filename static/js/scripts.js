@@ -71,77 +71,11 @@ function direction(){
             temp_deviationX = "straight";
             ///tankCmd("backward","straight",speed,deviation);
             console.log('script:backward_straight');
-    console.log("------------------")
-    let posX=joy.GetX();
-    posX = 0;
-    let posY=joy.GetY();
-    posY = 60;
-    console.log("X:"+posX);
-    console.log("Y:"+posY);
 
-    console.log("------------------")
-    let speed = Math.abs(Math.floor(Math.sqrt(posX**2+posY**2)));
-    let deviation = 50;
-    if (posY !=0)
-    {
-        deviation = Math.abs(Math.floor(posX/posY));
-    }
-    console.log("------------------")
-    if (posY>0)
-    {
-        if(posX>0)
-        {
-            tankCmd("forward","right",speed,deviation);
-            console.log('fr');
         }
-        else if(posX<0)
-        {
-            tankCmd("forward","left",speed,deviation);
-            console.log('fl');
-        }
-        else if(posX==0)
-        {
-            tankCmd("forward","straight",speed,deviation);
-            console.log('f');
-        }
-    }
-    else if (posY<0)
-    {
-        if(posX>0)
-        {
-            tankCmd("backward","right",speed,deviation);
-            console.log('br');
-        }
-        else if(posX<0)
-        {
-            tankCmd("backward","left",speed,deviation);
-            console.log('bl');
-        }
-        else if(posX==0)
-        {
-            tankCmd("backward","straight",speed,deviation);
-            console.log('b');
-        }
-    }
-    else
-    {
-
-        temp_deviationX = "null";
-        temp_deviationY = "null"
-        ///tankCmd("null","null")
-    }
-    tankCmd(temp_deviationY,temp_deviationX,speed,deviation)
-        tankCmd("null","null",speed,deviation)
-    }
-
-    //else if (posY==0 & posX==0)
-    //{
-        //tankCmd("stop","straight",speed,deviation);
-        //console.log('s');
-    //}
     }
 }
-
+ 
 
 function tankCmd(directionY,directionX,speed=0,deviation=0)
 {
