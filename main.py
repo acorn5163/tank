@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request,Response
 import tank
+import math
 #from camera import Camera
 # import cv2
 
@@ -23,43 +24,75 @@ def index():
 
 
 @app.route('/on',methods=["POST"])
-def control():
+def control(): 
     if request.method == "POST":
-        print(request.form['name'])
-        if "forward"==request.form['name']:
-            print("-"*20)
-            print("forwarding")
-            print("-"*20)
-            tank.forward()
+        if request.form['speed'] != None:
+            speed_per = Math.floor(100*(request.form['speed']/141))
+            deviation_per = 100-Math.floor(2*(request.form['deviation']))
+            print("speed_per:"+speed_per)
+            print("deviation_per"+deviation_per)
+            speed_higher = speed_per
+            speed_lower = speed_per*deviation_per
 
-        elif "backward"==request.form['name']:
-            print("-"*20)
-            print("backwarding")
-            print("-"*20)
-            tank.backward()
+            if "forward"==request.form['directionY']:
+                if "right"==request.form['directionX']:
+                    #tank.forward(speed_lower,speed_higher)
+                    speed_rightside = speed_lower
+                    speed_leftside = speed_higher
+                elif "left"==request.form['directionX']:
+                    #tank.forward(speed_higher,speed_lower)
+                    speed_rightside = speed_higher
+                    speed_leftside = speed_lower
+                elif "straight"==request.form['directionX']:
+                    #tank.forward(speed_higher,speed_higher)
+                    speed_rightside = speed_higher
+                    speed_leftside = speed_higher
+                else:
+                    print("error")
 
-        elif "turnright"==request.form['name']:
-            print("-"*20)
-            print("turning right")
-            print("-"*20)
-            tank.turnright()
-        
-        elif "turnleft"==request.form['name']:
-            print("-"*20)
-            print("turning left")
-            print("-"*20)
-            tank.turnleft()
+                tank.forward(speed_rightside,speed_leftside)
+                print("-"*20)
+                print("forwarding,[right:"+str(speed_rightside)+"][left:"+str(speed_leftside)+"]")
+                print("-"*20)
+                
 
-        elif "stop"==request.form['name']:
-            print("-"*20)
-            print("stopping")
-            print("-"*20)
-            tank.stop()
+            elif "backward"==request.form['directionY']:
+                if "right"==request.form['directionX']:
+                    #tank.backward(speed_lower,speed_higher)
+                    speed_rightside = speed_lower
+                    speed_leftside = speed_higher
+                elif "left"==request.form['directionX']:
+                    #tank.backward(speed_higher,speed_lower)
+                    speed_rightside = speed_higher
+                    speed_leftside = speed_lower
+                elif "straight"==request.form['directionX']:
+                    #tank.backward(speed_higher,speed_higher)
+                    speed_rightside = speed_higher
+                    speed_leftside = speed_higher
+                else:
+                    print("error")
+                tank.backward(speed_rightside,speed_leftside)
+                print("-"*20)
+                print("backwarding,[right:"+str(speed_rightside)+"][left:"+str(speed_leftside)+"]")
+                print("-"*20)
 
-        else:
-            print("-"*20)
-            print("error")
-            print("-"*20)
+            # elif "turnright"==request.form['direction']:
+            #     print("-"*20)
+            #     print("turning right")
+            #     print("-"*20)
+            #     tank.turnright(speed,speed-deviation)
+            
+            # elif "turnleft"==request.form['direction']:
+            #     print("-"*20)
+            #     print("turning left")
+            #     print("-"*20)
+            #     tank.turnleft(speed-deviation,speed)
+
+            else:
+                print("-"*20)
+                print("error")
+                tank.forward(0,0)
+                print("-"*20)
         
 
         #prestates=request.form['name']
@@ -71,4 +104,4 @@ def control():
             #mimetype="multipart/x-mixed-replace; boundary=frame")
 
 
-app.run("0.0.0.0")
+app.run("10.4.100.209",debug = True)
