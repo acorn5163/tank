@@ -26,26 +26,50 @@ def index():
 @app.route('/on',methods=["POST"])
 def control(): 
     if request.method == "POST":
-        if request.form['speed'] != None:
-            print("speed_origin"+str(request.form['speed']))
-            print("deviation_origin"+str(request.form['deviation']))
-            speed_per = math.floor(100*(int(request.form['speed'])/141))
-            deviation_per = 100-math.floor(100*(int(request.form['deviation'])/100))
+        posX = int(request.form['positionX'])
+        posY = int(request.form['positionY'])
+        speed = math.floor(math.sqrt(posX^2+posY^2))
+        deviation = 0
+        if posX != 0:
+            deviation = math.abs(math.floor(posX/posY))
+
+        directionX = "null"
+        directionY = "null"
+
+        if posY > 0:
+            directionY = "forward"
+        elif posY < 0:
+            directionY = "backward"
+        else:
+            direction = "stop"
+
+        if posX > 0:
+            directionY = "right"
+        elif posX < 0:
+            directionY = "left"
+        else:
+            direction = "straight"
+        ################################
+        if speed != None:
+            print("speed_origin"+str(speed))
+            print("deviation_origin"+str(deviation))
+            speed_per = math.floor(100*(int(speed)/141))
+            deviation_per = 100-math.floor(100*(int(deviation)/100))
             print("speed_per:"+str(speed_per))
             print("deviation_per:"+str(deviation_per))
             speed_higher = math.floor(speed_per)
             speed_lower = math.floor(speed_per*deviation_per/100)
 
-            if "forward"==request.form['directionY']:
-                if "right"==request.form['directionX']:
+            if "forward"==directionY:
+                if "right"==directionX:
                     #tank.forward(speed_lower,speed_higher)
                     speed_rightside = speed_lower
                     speed_leftside = speed_higher
-                elif "left"==request.form['directionX']:
+                elif "left"==directionX:
                     #tank.forward(speed_higher,speed_lower)
                     speed_rightside = speed_higher
                     speed_leftside = speed_lower
-                elif "straight"==request.form['directionX']:
+                elif "straight"==directionX:
                     #tank.forward(speed_higher,speed_higher)
                     speed_rightside = speed_higher
                     speed_leftside = speed_higher
@@ -58,16 +82,16 @@ def control():
                 print("-"*20)
                 
 
-            elif "backward"==request.form['directionY']:
-                if "right"==request.form['directionX']:
+            elif "backward"==directionY:
+                if "right"==directionX:
                     #tank.backward(speed_lower,speed_higher)
                     speed_rightside = speed_lower
                     speed_leftside = speed_higher
-                elif "left"==request.form['directionX']:
+                elif "left"==directionX:
                     #tank.backward(speed_higher,speed_lower)
                     speed_rightside = speed_higher
                     speed_leftside = speed_lower
-                elif "straight"==request.form['directionX']:
+                elif "straight"==directionX:
                     #tank.backward(speed_higher,speed_higher)
                     speed_rightside = speed_higher
                     speed_leftside = speed_higher
@@ -76,6 +100,18 @@ def control():
                 tank.backward(speed_rightside,speed_leftside)
                 print("-"*20)
                 print("backwarding,[right:"+str(speed_rightside)+"][left:"+str(speed_leftside)+"]")
+                print("-"*20)
+
+            elif "stop" == directionY:
+                tank.stop()
+                print("-"*20)
+                print("stopping")
+                print("-"*20)
+
+            else:
+                print("-"*20)
+                print("error")
+                tank.close()
                 print("-"*20)
 
             # elif "turnright"==request.form['direction']:
@@ -90,11 +126,7 @@ def control():
             #     print("-"*20)
             #     tank.turnleft(speed-deviation,speed)
 
-            else:
-                print("-"*20)
-                print("error")
-                tank.forward(0,0)
-                print("-"*20)
+
 
     return render_template('index.html')
 
