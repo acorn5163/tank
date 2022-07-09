@@ -1,10 +1,10 @@
 from flask import Flask,render_template,request,Response
-import tank
+import tank_copy
 import math
 #from camera import Camera
 # import cv2
 
-tank = tank.Tank()
+tank = tank_copy.Tank()
 
 app=Flask(__name__)
 
@@ -25,13 +25,18 @@ def index():
 
 @app.route('/on',methods=["POST"])
 def control(): 
+    print("POST received")
     if request.method == "POST":
         posX = int(request.form['positionX'])
         posY = int(request.form['positionY'])
-        speed = math.floor(math.sqrt(posX^2+posY^2))
+        print("X:"+str(posX)+" Y:"+str(posY))
+        distanceX = int(math.fabs(posX))
+        distanceY = int(math.fabs(posY))
+        print("fabX:"+str(distanceX)+" fabY:"+str(distanceY))
+        speed = math.floor(math.sqrt((distanceX**2)+(distanceY**2)))
         deviation = 0
-        if posX != 0:
-            deviation = math.abs(math.floor(posX/posY))
+        if posY != 0:
+            deviation = math.fabs(math.floor(posX/posY))
 
         directionX = "null"
         directionY = "null"
@@ -41,14 +46,17 @@ def control():
         elif posY < 0:
             directionY = "backward"
         else:
-            direction = "stop"
+            directionY = "stop"
 
         if posX > 0:
-            directionY = "right"
+            directionX = "right"
         elif posX < 0:
-            directionY = "left"
+            directionX = "left"
         else:
-            direction = "straight"
+            directionX = "straight"
+
+        print("directionX:"+directionX)
+        print("directionY:"+directionY)
         ################################
         if speed != None:
             print("speed_origin"+str(speed))

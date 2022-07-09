@@ -1,6 +1,6 @@
 let joy = new JoyStick('joyDiv');
 
-setInterval(direction,100);
+setInterval(direction,2000);
 
 
 function direction(){
@@ -13,6 +13,8 @@ function direction(){
     console.log("X:"+posX);
     console.log("Y:"+posY);
     console.log("------------------");
+    tankCmd(posX,posY)
+    log.console("tankCmd runned")
 
 //     let speed =Math.floor(Math.sqrt(posX**2+posY**2));
 //     console.log("speed:"+speed);
@@ -115,4 +117,5 @@ function tankCmd(positionX,positionY)
     // form.appendChild(inputdeviation);
     
     form.submit();
+    log.console("form submitted")
 }
