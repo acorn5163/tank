@@ -1,6 +1,6 @@
 let joy = new JoyStick('joyDiv');
 
-setInterval(direction,2000);
+setInterval(direction,1000);
 
 
 function direction(){

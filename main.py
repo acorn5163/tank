@@ -1,10 +1,13 @@
 from flask import Flask,render_template,request,Response
 import tank_copy
 import math
+import pigpio
 #from camera import Camera
 # import cv2
 
 tank = tank_copy.Tank()
+pi = pigpio.pi()
+
 
 app=Flask(__name__)
 
@@ -32,6 +35,7 @@ def control():
         print("X:"+str(posX)+" Y:"+str(posY))
         distanceX = int(math.fabs(posX))
         distanceY = int(math.fabs(posY))
+
         print("fabX:"+str(distanceX)+" fabY:"+str(distanceY))
         speed = math.floor(math.sqrt((distanceX**2)+(distanceY**2)))
         deviation = 0
@@ -136,7 +140,8 @@ def control():
 
 
 
-    return render_template('index.html')
+            return render_template('index.html')
+
 
 #@app.route("/video_feed")
 #def video_feed():

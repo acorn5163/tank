@@ -1,16 +1,16 @@
 import pigpio
 import sys
 
-class Tank:
 
+class Tank:
     def __init__(self):
-        
         pi = pigpio.pi()
-        
+        print(pi.connected)
+    
         self.motor_right_F = 13
         self.motor_right_B = 6
         self.motor_left_F = 5
-        self.motor_left_B = 0
+        self.motor_left_B = 9
         self.frequency = 50
         self.range = 100
 
@@ -33,6 +33,7 @@ class Tank:
 
         
     def forward(self,dutyright,dutyleft):
+        pi = pigpio.pi()
         # self.rightF.ChangeDutyCycle(dutyright)
         # self.rightB.ChangeDutyCycle(0)
         # self.leftF.ChangeDutyCycle(dutyleft)
@@ -64,6 +65,7 @@ class Tank:
         #print("-"*20)
 
     def backward(self,dutyright,dutyleft):
+        pi = pigpio.pi()
         # self.rightF.ChangeDutyCycle(0)
         # self.rightB.ChangeDutyCycle(dutyright)
         # self.leftF.ChangeDutyCycle(0)
@@ -77,6 +79,7 @@ class Tank:
         print("-"*20)
     
     def stop(self):
+        pi = pigpio.pi()
         # self.rightF.ChangeDutyCycle(0)
         # self.rightB.ChangeDutyCycle(0)
         # self.leftF.ChangeDutyCycle(0)
@@ -97,6 +100,5 @@ class Tank:
         pi.set_PWM_dutycycle(self.motor_left_B,0)
         print("-"*20)
         print("closing...")
-        GPIO.cleanup()
         sys.exit(0)
 
