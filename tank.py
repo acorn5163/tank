@@ -3,7 +3,6 @@ import sys
 
 
 
-
 class Tank:
 
     def __init__(self):
@@ -11,7 +10,7 @@ class Tank:
         self.motor_right_F = 13
         self.motor_right_B = 6
         self.motor_left_F = 5
-        self.motor_left_B = 0
+        self.motor_left_B = 9
         self.duty = 80
 
         GPIO.setup(self.motor_right_F, GPIO.OUT)
