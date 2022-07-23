@@ -33,7 +33,6 @@ class Tank:
 
         
     def forward(self,dutyright,dutyleft):
-        pi = pigpio.pi()
         # self.rightF.ChangeDutyCycle(dutyright)
         # self.rightB.ChangeDutyCycle(0)
         # self.leftF.ChangeDutyCycle(dutyleft)
@@ -65,7 +64,6 @@ class Tank:
         #print("-"*20)
 
     def backward(self,dutyright,dutyleft):
-        pi = pigpio.pi()
         # self.rightF.ChangeDutyCycle(0)
         # self.rightB.ChangeDutyCycle(dutyright)
         # self.leftF.ChangeDutyCycle(0)
@@ -79,7 +77,6 @@ class Tank:
         print("-"*20)
     
     def stop(self):
-        pi = pigpio.pi()
         # self.rightF.ChangeDutyCycle(0)
         # self.rightB.ChangeDutyCycle(0)
         # self.leftF.ChangeDutyCycle(0)
