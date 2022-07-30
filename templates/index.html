@@ -8,7 +8,7 @@
 
 
 
-        <title>Document</title>
+        <title>Console</title>
     </head>
     <body oncopy='return false;'>
 
@@ -19,7 +19,28 @@
     </div>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-
+    
+    <style>
+        * {padding: 0; margin:0}
+        canvas{background: #eee; display: block; margin: 0 auto;}
+    </style>
+        
     <iframe hidden name="hiddeniframe"></iframe>
     </body>
+    
+    <canvas id="myCanvas" width="480" height="480"></canvas>
+    <p>
+        speed:{{speed}}
+    </p>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+     
+
+        ctx.beginPath();
+        ctx.arc(240, 240, 100, 0 ,Math.PI*180*{{ speed|tojson }}, false);
+        ctx.fillStyle = "green";
+        ctx.fill();
+        ctx.closePath();
+    </script>
 </html>

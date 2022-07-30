@@ -13,7 +13,7 @@ app=Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html",speed=90)
 
 #def gen(camera):
     #while True:
@@ -40,7 +40,7 @@ def control():
         speed = math.floor(math.sqrt((distanceX**2)+(distanceY**2)))
         deviation = 0
         if posY != 0:
-            deviation = math.fabs(math.floor(posX/posY))
+            deviation = math.floor(math.degrees(math.atan(math.fabs(posX/posY))))
 
         directionX = "null"
         directionY = "null"
@@ -59,16 +59,16 @@ def control():
         else:
             directionX = "straight"
 
-        print("directionX:"+directionX)
-        print("directionY:"+directionY)
+        print("[directionX:"+directionX+"][directionY:"+directionY+"]")
         ################################
         if speed != None:
-            print("speed_origin"+str(speed))
-            print("deviation_origin"+str(deviation))
-            speed_per = math.floor(100*(int(speed)/141))
-            deviation_per = 100-math.floor(100*(int(deviation)/100))
-            print("speed_per:"+str(speed_per))
-            print("deviation_per:"+str(deviation_per))
+            print("[speed_origin:"+str(speed)+"]     [deviation_origin:"+str(deviation)+"]")
+            speed_per = math.floor(100*(int(speed)/142))
+            if deviation == 0:
+                deviation_per = 100
+            else:
+                deviation_per = 100 - math.floor(deviation/0.9)
+            print("[speed_per:"+str(speed_per)+"]        [deviation_per:"+str(deviation_per)+"]")
             speed_higher = math.floor(speed_per)
             speed_lower = math.floor(speed_per*deviation_per/100)
 
@@ -115,11 +115,21 @@ def control():
                 print("-"*20)
 
             elif "stop" == directionY:
-                tank.stop()
-                print("-"*20)
-                print("stopping")
-                print("-"*20)
-
+                if "straight" == directionX:
+                    tank.stop()
+                    print("-"*20)
+                    print("stopping")
+                    print("-"*20)
+                elif "right" == directionX:
+                    tank.turnright(speed_higher)
+                    print("-"*20)
+                    print("turning right,["+speed_higher+"]")
+                    print("-"*20)
+                elif "left" == directionX:
+                    tank.turnleft(speed_higher)
+                    print("-"*20)
+                    print("turning left,["+ speed_higher+"]")
+                    print("-"*20)
             else:
                 print("-"*20)
                 print("error")
@@ -140,7 +150,7 @@ def control():
 
 
 
-            return render_template('index.html')
+            return render_template('index.html',speed = 40)
 
 
 #@app.route("/video_feed")
